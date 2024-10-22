@@ -42,6 +42,41 @@ class TaskManager {
 
 const taskManager = new TaskManager();
 
+async function fetchRandomActivity() {
+  try {
+    const response = await fetch("https://bored-api.appbrewery.com/random");
+    if (!response.ok) {
+      throw new Error("Erreur lors de la récupération de l'activité");
+    }
+    const data = await response.json();
+    return data.activity; // Retourne uniquement l'activité
+  } catch (error) {
+    console.error("Erreur:", error);
+  }
+}
+
+// Gestionnaire d'événements pour le bouton "Ajouter une tâche aléatoire" (À faire)
+document
+  .getElementById("add-random-task-todo")
+  .addEventListener("click", async () => {
+    const randomTaskTitle = await fetchRandomActivity();
+    if (randomTaskTitle) {
+      taskManager.addTodoTask(randomTaskTitle);
+      displayTodoTasks();
+    }
+  });
+
+// Gestionnaire d'événements pour le bouton "Ajouter une tâche aléatoire" (À ne pas faire)
+document
+  .getElementById("add-random-task-todont")
+  .addEventListener("click", async () => {
+    const randomTaskTitle = await fetchRandomActivity();
+    if (randomTaskTitle) {
+      taskManager.addTodontTask(randomTaskTitle);
+      displayTodontTasks();
+    }
+  });
+
 function displayTodoTasks() {
   const todoList = document.getElementById("todo-list");
   todoList.innerHTML = ""; // Vider la liste avant d'afficher
