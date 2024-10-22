@@ -1,7 +1,7 @@
 class Task {
   constructor(title) {
     this.title = title;
-    this.id = Date.now(); // Un identifiant unique basé sur le timestamp
+    this.id = Date.now();
   }
 }
 
@@ -49,13 +49,12 @@ async function fetchRandomActivity() {
       throw new Error("Erreur lors de la récupération de l'activité");
     }
     const data = await response.json();
-    return data.activity; // Retourne uniquement l'activité
+    return data.activity;
   } catch (error) {
     console.error("Erreur:", error);
   }
 }
 
-// Gestionnaire d'événements pour le bouton "Ajouter une tâche aléatoire" (À faire)
 document
   .getElementById("add-random-task-todo")
   .addEventListener("click", async () => {
@@ -66,7 +65,6 @@ document
     }
   });
 
-// Gestionnaire d'événements pour le bouton "Ajouter une tâche aléatoire" (À ne pas faire)
 document
   .getElementById("add-random-task-todont")
   .addEventListener("click", async () => {
@@ -79,50 +77,46 @@ document
 
 function displayTodoTasks() {
   const todoList = document.getElementById("todo-list");
-  todoList.innerHTML = ""; // Vider la liste avant d'afficher
+  todoList.innerHTML = "";
   taskManager.getTodoTasks().forEach((task, index) => {
     const listItem = document.createElement("li");
     listItem.className =
-      "list-group-item bg-dark text-light d-flex justify-content-between align-items-center"; // Ajout de d-flex
+      "list-group-item bg-dark text-light d-flex justify-content-between align-items-center";
 
-    // Création d'un conteneur pour la checkbox et le texte de la tâche
     const taskContainer = document.createElement("div");
-    taskContainer.className = "d-flex align-items-center"; // Aligne la checkbox et le texte
+    taskContainer.className = "d-flex align-items-center";
 
-    // Création de la checkbox
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.className = "me-2"; // Ajout d'un margin à droite
+    checkbox.className = "me-2";
     checkbox.onclick = () => {
       if (checkbox.checked) {
-        taskContainer.style.textDecoration = "line-through"; // Barrer seulement le texte de la tâche
-        taskContainer.style.color = "#d3d3d3"; // Changer la couleur en gris clair
-        listItem.style.backgroundColor = "#28a745"; // Changer le fond en vert
+        taskContainer.style.textDecoration = "line-through";
+        taskContainer.style.color = "#d3d3d3";
+        listItem.style.backgroundColor = "#28a745";
       } else {
-        taskContainer.style.textDecoration = "none"; // Enlever le barré
-        taskContainer.style.color = ""; // Rétablir la couleur
-        listItem.style.backgroundColor = ""; // Rétablir le fond
+        taskContainer.style.textDecoration = "none";
+        taskContainer.style.color = "";
+        listItem.style.backgroundColor = "";
       }
     };
 
-    taskContainer.appendChild(checkbox); // Ajouter la checkbox au conteneur
-    taskContainer.appendChild(document.createTextNode(task.title)); // Ajouter le texte de la tâche au conteneur
+    taskContainer.appendChild(checkbox);
+    taskContainer.appendChild(document.createTextNode(task.title));
 
-    listItem.appendChild(taskContainer); // Ajouter le conteneur de la tâche à l'élément de la tâche
+    listItem.appendChild(taskContainer);
 
-    // Ajout du bouton de suppression
     const deleteButton = document.createElement("button");
-    deleteButton.className = "btn btn-danger btn-sm"; // Pas besoin de float-end, le flexbox s'en occupe
+    deleteButton.className = "btn btn-danger btn-sm";
     deleteButton.textContent = "Supprimer";
     deleteButton.onclick = () => {
       taskManager.removeTodoTask(task.id);
-      displayTodoTasks(); // Réafficher la liste sans animation
+      displayTodoTasks();
     };
 
-    listItem.appendChild(deleteButton); // Ajouter le bouton à la fin du listItem
+    listItem.appendChild(deleteButton);
     todoList.appendChild(listItem);
 
-    // Appliquer l'animation uniquement à la dernière tâche ajoutée
     if (index === taskManager.getTodoTasks().length - 1) {
       setTimeout(() => {
         listItem.classList.add("added");
@@ -133,50 +127,46 @@ function displayTodoTasks() {
 
 function displayTodontTasks() {
   const todontList = document.getElementById("todont-list");
-  todontList.innerHTML = ""; // Vider la liste avant d'afficher
+  todontList.innerHTML = "";
   taskManager.getTodontTasks().forEach((task, index) => {
     const listItem = document.createElement("li");
     listItem.className =
       "list-group-item bg-dark text-light d-flex justify-content-between align-items-center"; // Ajout de d-flex
 
-    // Création d'un conteneur pour la checkbox et le texte de la tâche
     const taskContainer = document.createElement("div");
-    taskContainer.className = "d-flex align-items-center"; // Aligne la checkbox et le texte
+    taskContainer.className = "d-flex align-items-center";
 
-    // Création de la checkbox
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.className = "me-2"; // Ajout d'un margin à droite
+    checkbox.className = "me-2";
     checkbox.onclick = () => {
       if (checkbox.checked) {
-        taskContainer.style.textDecoration = "line-through"; // Barrer seulement le texte de la tâche
-        taskContainer.style.color = "#d3d3d3"; // Changer la couleur en gris clair
-        listItem.style.backgroundColor = "#28a745"; // Changer le fond en vert
+        taskContainer.style.textDecoration = "line-through";
+        taskContainer.style.color = "#d3d3d3";
+        listItem.style.backgroundColor = "#28a745";
       } else {
-        taskContainer.style.textDecoration = "none"; // Enlever le barré
-        taskContainer.style.color = ""; // Rétablir la couleur
-        listItem.style.backgroundColor = ""; // Rétablir le fond
+        taskContainer.style.textDecoration = "none";
+        taskContainer.style.color = "";
+        listItem.style.backgroundColor = "";
       }
     };
 
-    taskContainer.appendChild(checkbox); // Ajouter la checkbox au conteneur
-    taskContainer.appendChild(document.createTextNode(task.title)); // Ajouter le texte de la tâche au conteneur
+    taskContainer.appendChild(checkbox);
+    taskContainer.appendChild(document.createTextNode(task.title));
 
-    listItem.appendChild(taskContainer); // Ajouter le conteneur de la tâche à l'élément de la tâche
+    listItem.appendChild(taskContainer);
 
-    // Ajout du bouton de suppression
     const deleteButton = document.createElement("button");
-    deleteButton.className = "btn btn-danger btn-sm"; // Pas besoin de float-end, le flexbox s'en occupe
+    deleteButton.className = "btn btn-danger btn-sm";
     deleteButton.textContent = "Supprimer";
     deleteButton.onclick = () => {
       taskManager.removeTodontTask(task.id);
-      displayTodontTasks(); // Réafficher la liste sans animation
+      displayTodontTasks();
     };
 
-    listItem.appendChild(deleteButton); // Ajouter le bouton à la fin du listItem
+    listItem.appendChild(deleteButton);
     todontList.appendChild(listItem);
 
-    // Appliquer l'animation uniquement à la dernière tâche ajoutée
     if (index === taskManager.getTodontTasks().length - 1) {
       setTimeout(() => {
         listItem.classList.add("added");
@@ -185,22 +175,20 @@ function displayTodontTasks() {
   });
 }
 
-// Gestionnaire d'événements pour le formulaire "À faire"
 document.getElementById("todo-form").addEventListener("submit", (e) => {
   e.preventDefault();
   const taskInput = document.getElementById("new-task-todo");
   const taskTitle = taskInput.value;
   taskManager.addTodoTask(taskTitle);
-  displayTodoTasks(); // Afficher la tâche ajoutée avec animation
-  taskInput.value = ""; // Réinitialiser le champ
+  displayTodoTasks();
+  taskInput.value = "";
 });
 
-// Gestionnaire d'événements pour le formulaire "À ne pas faire"
 document.getElementById("todont-do-form").addEventListener("submit", (e) => {
   e.preventDefault();
   const taskInput = document.getElementById("new-task-todont");
   const taskTitle = taskInput.value;
   taskManager.addTodontTask(taskTitle);
-  displayTodontTasks(); // Afficher la tâche ajoutée avec animation
-  taskInput.value = ""; // Réinitialiser le champ
+  displayTodontTasks();
+  taskInput.value = "";
 });
