@@ -4,3 +4,36 @@
   width: 30px;
   height: 30px;
 }
+/* Animation pop pour la nouvelle tâche */
+.list-group-item {
+  margin-bottom: 10px; /* Ajoute un espace entre les tâches */
+  border-top: 2px solid #555; /* Ajoute une bordure supérieure aux tâches */
+}
+
+/* Animation pour l'ajout d'une tâche */
+@keyframes pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.list-group-item.added {
+  animation: pop 0.5s ease; /* Applique l'animation à la tâche ajoutée */
+}
+
+/* Styles spécifiques pour l'animation */
+.bg-dark {
+  background-color: #343a40 !important; /* Assure que le fond est sombre */
+}
+
+.text-light {
+  color: #f8f9fa !important; /* Assure que le texte est clair */
+}
