@@ -1,0 +1,6 @@
+.btn-icon {
+  display: flex;
+  flex-direction: row;
+  width: 30px;
+  height: 30px;
+}
